@@ -53,13 +53,14 @@ export default function Header() {
 
       <div className="nav">
         <Link href="/" className="brand">
-          <span className="mark">
-            <Image src="/images/logo-red-borincana.png" alt="Red Borincana" width={44} height={44} />
-          </span>
-          <div>
-            Red Borincana
-            <small>una iniciativa de Fundación Borincana</small>
-          </div>
+          <Image
+            src="/images/logo-red-borincana-full.png"
+            alt="Red Borincana"
+            width={994}
+            height={605}
+            className="brand-logo"
+            priority
+          />
         </Link>
         <nav className="links">
           {NAV_LINKS.map((link) => (

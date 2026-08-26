@@ -17,15 +17,43 @@ export default function IntakeForm({
 }) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
-    // TODO: conectar al sistema de manejo de flujos de trabajo del cliente (embed o vía MCP)
-    // una vez tengan definido el endpoint/formulario de destino.
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    setSubmitting(false);
-    setSubmitted(true);
+    setError(null);
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch("/api/intake", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: data.get("nombre"),
+          coop: data.get("coop"),
+          municipio: data.get("municipio"),
+          interes: data.get("interes"),
+          comentario: data.get("comentario"),
+          pagina: typeof window !== "undefined" ? window.location.pathname : "",
+        }),
+      });
+      const json = await res.json().catch(() => ({ ok: false }));
+
+      if (!res.ok || !json.ok) {
+        setError(json.error || "No se pudo enviar la solicitud. Intenta de nuevo.");
+        setSubmitting(false);
+        return;
+      }
+
+      setSubmitting(false);
+      setSubmitted(true);
+    } catch {
+      setError("No se pudo enviar la solicitud. Revisa tu conexión e intenta de nuevo.");
+      setSubmitting(false);
+    }
   }
 
   if (submitted) {
@@ -65,6 +93,7 @@ export default function IntakeForm({
         <label htmlFor="comentario">Cuéntanos más (opcional)</label>
         <textarea id="comentario" name="comentario" placeholder="Cualquier detalle adicional..." />
       </div>
+      {error && <p className="form-error">{error}</p>}
       <button type="submit" className="submit-btn" disabled={submitting}>
         {submitting ? "Enviando..." : "Enviar solicitud"}
       </button>

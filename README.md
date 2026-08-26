@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Red Borincana
 
-## Getting Started
+Sitio web de Red Borincana, una iniciativa de Fundación Borincana que conecta a personas, cooperativas e
+instaladores puertorriqueños alrededor del financiamiento solar responsable.
 
-First, run the development server:
+Next.js (App Router) + TypeScript, sin librería de estilos externa (CSS plano en `src/app/globals.css`).
+
+## Desarrollo local
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `src/app/page.tsx` — homepage
+- `src/app/instaladores/page.tsx` — página para instaladores que quieren unirse a la red
+- `src/components/` — Header, Footer, IntakeForm (compartidos entre páginas)
+- `src/app/api/intake/route.ts` — recibe el formulario de contacto y lo reenvía al destino configurado
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Formulario de contacto → Google Sheets (solución interina)
 
-## Learn More
+El formulario (`IntakeForm`) envía a `/api/intake`, que reenvía los datos a un Google Apps Script Web App
+que los guarda en un Google Sheet. Esto es temporal, mientras se conecta el sistema de manejo de flujos de
+trabajo real del cliente.
 
-To learn more about Next.js, take a look at the following resources:
+**Configuración (una vez, en la cuenta de Google del cliente):**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Crea un Google Sheet nuevo. En la primera fila, agrega estos encabezados:
+   `Fecha | Nombre | Cooperativa | Municipio | Interés | Comentario | Página`
+2. Ve a **Extensiones → Apps Script**.
+3. Borra el código de ejemplo y pega esto:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```javascript
+   function doPost(e) {
+     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+     var data = JSON.parse(e.postData.contents);
+     sheet.appendRow([
+       data.fecha || new Date().toISOString(),
+       data.nombre || "",
+       data.coop || "",
+       data.municipio || "",
+       data.interes || "",
+       data.comentario || "",
+       data.pagina || "",
+     ]);
+     return ContentService.createTextOutput(JSON.stringify({ ok: true })).setMimeType(
+       ContentService.MimeType.JSON
+     );
+   }
+   ```
 
-## Deploy on Vercel
+4. **Implementar → Nueva implementación → tipo: Aplicación web.**
+   - Ejecutar como: **Yo**
+   - Quién tiene acceso: **Cualquier usuario**
+5. Autoriza los permisos cuando lo pida. Copia la URL de la aplicación web (termina en `/exec`).
+6. Configura esa URL como variable de entorno `GOOGLE_SHEET_WEBHOOK_URL`:
+   - Local: crea `.env.local` (no se sube a git) con `GOOGLE_SHEET_WEBHOOK_URL=<tu-url>` — usa `.env.example` como referencia.
+   - Netlify: Site settings → Environment variables → agrega `GOOGLE_SHEET_WEBHOOK_URL`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Sin esa variable configurada, el formulario muestra un error al enviar (no falla en silencio).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Cuando se conecte el sistema definitivo del cliente:** reemplazar la lógica interna de
+`src/app/api/intake/route.ts` — el formulario en el front-end no necesita cambiar.
+
+## Deploy
+
+Configurado para Netlify (detecta Next.js automáticamente). Recuerda configurar `GOOGLE_SHEET_WEBHOOK_URL`
+en las variables de entorno del sitio antes de que el formulario funcione en producción.

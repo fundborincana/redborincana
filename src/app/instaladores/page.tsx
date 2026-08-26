@@ -86,7 +86,7 @@ export default function Instaladores() {
             <h2>El proceso de solicitud</h2>
             <p>Cuatro pasos, desde que nos escribes hasta que apareces en la red.</p>
           </div>
-          <div className="proceso-grid">
+          <div className="proceso-grid count-4">
             {[
               ["Envías tu información", "Completas el formulario con los datos básicos de tu compañía."],
               ["Revisamos tu perfil", "Confirmamos licencia, seguro e historial de proyectos."],
@@ -122,18 +122,12 @@ export default function Instaladores() {
         </div>
       </section>
 
-      <div className="cta-band">
-        <div className="wrap">
-          <div>
-            <h3>¿Tienes preguntas antes de aplicar?</h3>
-            <hr className="rule" />
-            <p>Escríbenos directamente y te orientamos.</p>
-          </div>
-          <a href="mailto:redborincana@fundacionborincana.org">Escribir a Red Borincana →</a>
-        </div>
-      </div>
-
-      <Footer />
+      <Footer
+        ctaHeading="¿Tienes preguntas antes de aplicar?"
+        ctaSubtext="Escríbenos directamente y te orientamos."
+        ctaHref="mailto:redborincana@fundacionborincana.org"
+        ctaLabel="Escribir a Red Borincana →"
+      />
     </>
   );
 }

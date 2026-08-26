@@ -1,23 +1,42 @@
 import Image from "next/image";
 
-export default function Footer() {
+export default function Footer({
+  ctaHeading = "Toma decisiones con información.",
+  ctaSubtext = "Encuentra opciones que funcionen para ti.",
+  ctaHref = "/#intake",
+  ctaLabel = "Comenzar →",
+}: {
+  ctaHeading?: string;
+  ctaSubtext?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
+}) {
   return (
     <footer>
-      <div className="footer-top">
+      <div className="footer-cta wrap">
+        <div>
+          <h3>{ctaHeading}</h3>
+          <p>{ctaSubtext}</p>
+        </div>
+        <a href={ctaHref} className="cta-btn">
+          {ctaLabel}
+        </a>
+      </div>
+
+      <div className="footer-top wrap">
         <Image
-          src="/images/logo-fundacion-borincana.png"
-          alt="Fundación Borincana"
-          width={140}
-          height={40}
-          style={{ filter: "brightness(0) invert(1)" }}
+          src="/images/logo-red-borincana-full.png"
+          alt="Red Borincana"
+          width={994}
+          height={605}
+          style={{ height: 52, width: "auto", filter: "brightness(0) invert(1)" }}
         />
       </div>
-      <div className="footer-grid">
+      <div className="footer-grid wrap">
         <div>
-          <h4>Red Borincana</h4>
           <p>
-            Una iniciativa de Fundación Borincana, con respaldo de un equipo técnico independiente, para conectar a
-            personas, cooperativas e instaladores puertorriqueños alrededor del financiamiento solar responsable.
+            Conectamos a personas, cooperativas e instaladores puertorriqueños alrededor del financiamiento solar
+            responsable, con respaldo de un equipo técnico independiente.
           </p>
         </div>
         <div>
@@ -35,8 +54,15 @@ export default function Footer() {
           <a href="/#intake">Formulario de contacto</a>
         </div>
       </div>
-      <div className="footer-bottom">
+      <div className="footer-bottom wrap">
         <span>© {new Date().getFullYear()} Fundación Borincana · Red Borincana</span>
+        <Image
+          src="/images/logo-fundacion-borincana-transparent.png"
+          alt="Una iniciativa de Fundación Borincana"
+          width={1634}
+          height={166}
+          style={{ height: 16, width: "auto", filter: "brightness(0) invert(1)", opacity: 0.75 }}
+        />
         <span>San Juan, Puerto Rico</span>
       </div>
     </footer>

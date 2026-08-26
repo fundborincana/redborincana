@@ -16,8 +16,8 @@ export default function Home() {
               <span className="green">la energía solar</span>
             </h1>
             <p className="lead">
-              Una red de recursos para ayudarte a tomar decisiones informadas y encontrar las mejores opciones — con
-              respaldo de una revisión técnica independiente.
+              Una red que te conecta con información confiable, orientación, financiamiento y proveedores
+              cualificados para que puedas tomar decisiones informadas sobre tu proyecto solar.
             </p>
             <div className="hero-actions">
               <a href="#intake" className="cta-btn">
@@ -26,6 +26,20 @@ export default function Home() {
               <a href="#como-funciona" className="cta-ghost">
                 Ver cómo funciona
               </a>
+            </div>
+            <div className="hero-trust">
+              <div className="item">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="m8.5 12.5 2.3 2.3L16 10" /></svg>
+                Revisión técnica independiente, sin conflicto de interés
+              </div>
+              <div className="item">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="m8.5 12.5 2.3 2.3L16 10" /></svg>
+                Conexión con recursos y opciones para avanzar
+              </div>
+              <div className="item">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="m8.5 12.5 2.3 2.3L16 10" /></svg>
+                Orientación clara durante cada etapa del proceso
+              </div>
             </div>
           </div>
           <div className="hero-photo">
@@ -306,43 +320,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <section className="respaldo">
-        <div className="wrap">
-          <div className="section-head">
-            <div className="kicker">Respaldo institucional</div>
-            <h2>Una iniciativa seria, con actores establecidos detrás</h2>
-            <p>Red Borincana es una iniciativa de Fundación Borincana, sin fines de lucro, con trayectoria en energía e inclusión financiera en Puerto Rico.</p>
-          </div>
-          <div className="badges">
-            <div className="badge">
-              <div className="circle">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><path d="M3 10 12 4l9 6" /><path d="M5 10v9M9.5 10v9M14.5 10v9M19 10v9" /><path d="M3 21h18" /></svg>
-              </div>
-              Fundación Borincana
-              <span>Organización sin fines de lucro</span>
-            </div>
-            <div className="badge">
-              <div className="circle">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m20 20-4.35-4.35" /><path d="m7.5 10.5 2 2 4-4" /></svg>
-              </div>
-              Revisión técnica independiente
-              <span>Sin conflicto de interés con instaladores</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="cta-band">
-        <div className="wrap">
-          <div>
-            <h3>Toma decisiones con información.</h3>
-            <hr className="rule" />
-            <p>Encuentra opciones que funcionen para ti.</p>
-          </div>
-          <a href="#intake">Comenzar →</a>
-        </div>
-      </div>
 
       <Footer />
     </>
