@@ -509,21 +509,6 @@ section {
   font-size: 14px;
   color: var(--ink-600);
 }
-.comprar-nota {
-  max-width: 1140px;
-  margin: 0 auto;
-  background: #eaf3ef;
-  border: 1px solid #cfe4db;
-  border-radius: var(--radius);
-  padding: 20px 26px;
-  font-size: 14.5px;
-  color: var(--navy-900);
-  text-align: center;
-}
-.comprar-nota b {
-  color: var(--teal-600);
-}
-
 .audiencias {
   background: var(--paper);
 }

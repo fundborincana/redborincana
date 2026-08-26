@@ -220,7 +220,6 @@ export default function Home() {
             <div className="comprar-card"><h4>Mantenimiento</h4><p>¿Quién le da mantenimiento al sistema y con qué frecuencia? ¿Está incluido o es costo aparte?</p></div>
             <div className="comprar-card"><h4>Calendario de pagos</h4><p>¿Se te pide el 100% por adelantado, o hay un calendario razonable ligado a etapas de la instalación?</p></div>
           </div>
-          <div className="comprar-nota"><b>No cobramos por esta orientación.</b> Nuestro interés es que tomes una buena decisión — no que compres un sistema en particular.</div>
         </div>
       </section>
 
