@@ -282,10 +282,6 @@ export default function Home() {
               <p>Podemos orientarte igual — hay caminos distintos según tu situación (dueño, heredero sin título, inquilino).</p>
             </details>
             <details>
-              <summary>¿Esto tiene costo para mí?</summary>
-              <p>La orientación inicial no tiene costo. Si tu propuesta resulta en un préstamo aprobado, aplica un cargo por la evaluación técnica como parte del proceso de financiamiento — te lo explicamos con claridad antes de que avances.</p>
-            </details>
-            <details>
               <summary>¿Qué pasa si ya tengo una propuesta de un instalador?</summary>
               <p>Perfecto — la revisamos de forma independiente antes de que decidas avanzar con el financiamiento.</p>
             </details>
