@@ -56,13 +56,15 @@ export default function Footer({
       </div>
       <div className="footer-bottom wrap">
         <span>© {new Date().getFullYear()} Fundación Borincana · Red Borincana</span>
-        <Image
-          src="/images/logo-fundacion-borincana-transparent.png"
-          alt="Una iniciativa de Fundación Borincana"
-          width={1634}
-          height={166}
-          style={{ height: 16, width: "auto", filter: "brightness(0) invert(1)", opacity: 0.75 }}
-        />
+        <a href="https://fundacionborincana.org" target="_blank" rel="noopener noreferrer">
+          <Image
+            src="/images/logo-fundacion-borincana-transparent.png"
+            alt="Una iniciativa de Fundación Borincana"
+            width={1634}
+            height={166}
+            style={{ height: 16, width: "auto", filter: "brightness(0) invert(1)", opacity: 0.75 }}
+          />
+        </a>
         <span>San Juan, Puerto Rico</span>
       </div>
     </footer>

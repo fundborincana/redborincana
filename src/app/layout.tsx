@@ -9,7 +9,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Red Borincana — Financiamiento solar con respaldo técnico independiente",
+  title: "Red Borincana — Tu Ruta Solar",
   description:
     "Una red de recursos para ayudarte a tomar decisiones informadas sobre energía solar en Puerto Rico, con respaldo de una revisión técnica independiente. Una iniciativa de Fundación Borincana.",
 };

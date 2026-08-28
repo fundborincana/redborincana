@@ -28,7 +28,7 @@ trabajo real del cliente.
 **Configuración (una vez, en la cuenta de Google del cliente):**
 
 1. Crea un Google Sheet nuevo. En la primera fila, agrega estos encabezados:
-   `Fecha | Nombre | Cooperativa | Municipio | Interés | Comentario | Página`
+   `Fecha | Nombre | Teléfono | Email | Cooperativa | Municipio | Interés | Comentario | Página`
 2. Ve a **Extensiones → Apps Script**.
 3. Borra el código de ejemplo y pega esto:
 
@@ -39,6 +39,8 @@ trabajo real del cliente.
      sheet.appendRow([
        data.fecha || new Date().toISOString(),
        data.nombre || "",
+       data.telefono || "",
+       data.email || "",
        data.coop || "",
        data.municipio || "",
        data.interes || "",
@@ -64,7 +66,32 @@ Sin esa variable configurada, el formulario muestra un error al enviar (no falla
 **Cuando se conecte el sistema definitivo del cliente:** reemplazar la lógica interna de
 `src/app/api/intake/route.ts` — el formulario en el front-end no necesita cambiar.
 
+## Emails de confirmación y aviso (Resend)
+
+Cuando alguien envía el formulario, además de guardarse en Google Sheets, se envían dos correos vía
+[Resend](https://resend.com):
+
+- Un correo de **confirmación** a la persona que llenó el formulario.
+- Un correo de **aviso** a `redborincana@fundacionborincana.org` con los detalles de la solicitud.
+
+Si `RESEND_API_KEY` no está configurada, el formulario sigue funcionando normalmente (se guarda en el
+Google Sheet) pero no se envía ningún correo — el error queda registrado en los logs del servidor, no se
+le muestra al usuario.
+
+**Configuración (una vez):**
+
+1. Crea una cuenta en [resend.com](https://resend.com).
+2. En **Domains → Add Domain**, agrega `redborincana.org`.
+3. Agrega los registros DNS que te indique Resend (SPF/DKIM) en el proveedor de DNS del dominio (GoDaddy).
+4. Espera a que el dominio quede verificado en Resend.
+5. Crea una API key en Resend y configúrala como variable de entorno `RESEND_API_KEY`:
+   - Local: en `.env.local` (no se sube a git) — usa `.env.example` como referencia.
+   - Netlify: Site settings → Environment variables → agrega `RESEND_API_KEY`.
+
+El remitente configurado en el código (`src/app/api/intake/route.ts`) es `noreply@redborincana.org` — si
+se cambia el dominio verificado en Resend, hay que actualizar esa dirección también.
+
 ## Deploy
 
 Configurado para Netlify (detecta Next.js automáticamente). Recuerda configurar `GOOGLE_SHEET_WEBHOOK_URL`
-en las variables de entorno del sitio antes de que el formulario funcione en producción.
+y `RESEND_API_KEY` en las variables de entorno del sitio antes de que el formulario funcione en producción.

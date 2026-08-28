@@ -44,7 +44,7 @@ export default function Home() {
           </div>
           <div className="hero-photo">
             <Image
-              src="/images/foto-casa-solar.png"
+              src="/images/foto-casa-solar.webp"
               alt="Casa residencial en Puerto Rico con panales solares instalados en el techo"
               width={700}
               height={520}

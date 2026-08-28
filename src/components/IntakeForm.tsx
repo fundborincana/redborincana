@@ -33,6 +33,8 @@ export default function IntakeForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nombre: data.get("nombre"),
+          telefono: data.get("telefono"),
+          email: data.get("email"),
           coop: data.get("coop"),
           municipio: data.get("municipio"),
           interes: data.get("interes"),
@@ -72,8 +74,12 @@ export default function IntakeForm({
         <input id="nombre" name="nombre" type="text" placeholder="Nombre y apellido" required />
       </div>
       <div className="field">
-        <label htmlFor="coop">Cooperativa (si aplica)</label>
-        <input id="coop" name="coop" type="text" placeholder="Nombre de tu cooperativa, o 'no sé' / 'no afiliado'" />
+        <label htmlFor="telefono">Teléfono</label>
+        <input id="telefono" name="telefono" type="tel" placeholder="787-000-0000" required />
+      </div>
+      <div className="field">
+        <label htmlFor="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="tu@correo.com" required />
       </div>
       <div className="field">
         <label htmlFor="municipio">Municipio</label>
@@ -88,6 +94,10 @@ export default function IntakeForm({
             </option>
           ))}
         </select>
+      </div>
+      <div className="field">
+        <label htmlFor="coop">Cooperativa (si ya es socio de una)</label>
+        <input id="coop" name="coop" type="text" placeholder="Nombre de tu cooperativa, o 'no sé' / 'no afiliado'" />
       </div>
       <div className="field">
         <label htmlFor="comentario">Cuéntanos más (opcional)</label>
