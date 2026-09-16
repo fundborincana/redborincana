@@ -249,7 +249,7 @@ export default function Home() {
               <div className="tag">Soy cooperativa</div>
               <h3>Quiero ofrecer este servicio a mis socios</h3>
               <p>Buscamos aprobar financiamiento solar con más confianza, apoyándonos en una revisión técnica externa.</p>
-              <a href="#intake">Conversemos →</a>
+              <a href="/cooperativas">Conversemos →</a>
             </div>
             <div className="aud-card">
               <div className="tag">Soy instalador</div>
@@ -292,6 +292,25 @@ export default function Home() {
             <details>
               <summary>¿Mi información se comparte con la cooperativa?</summary>
               <p>Solo cuando tú decides avanzar con el financiamiento — no antes.</p>
+            </details>
+            <details>
+              <summary>¿El servicio de Red Borincana tiene costo?</summary>
+              <p>
+                Sí. El servicio de Red Borincana tiene un costo de $450, pero no tienes que realizar un pago de tu
+                bolsillo para comenzar el proceso.
+              </p>
+              <p>
+                Este costo puede integrarse al monto total de la transacción y, cuando aplique, formar parte del
+                financiamiento con la cooperativa.
+              </p>
+              <p>Solo pagas cuando decides continuar con la compra de tu sistema solar.</p>
+              <p>
+                Como parte del servicio, recibes una evaluación técnica independiente de tu proyecto solar,
+                separada de la evaluación o recomendación del instalador. Además, te orientamos en la búsqueda de
+                opciones de financiamiento y facilitamos el proceso con las cooperativas participantes. Así puedes
+                evaluar tanto el sistema solar como las alternativas disponibles para financiarlo y tomar una
+                decisión informada antes de comprometerte con la compra.
+              </p>
             </details>
           </div>
         </div>

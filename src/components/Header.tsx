@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { href: "/#comprar", label: "Antes de comprar" },
   { href: "/#audiencias", label: "Para quién es" },
   { href: "/instaladores", label: "Instaladores" },
+  { href: "/cooperativas", label: "Cooperativas" },
   { href: "/#faq", label: "FAQ" },
   { href: "/#intake", label: "Contacto" },
 ];
