@@ -37,29 +37,17 @@ export default function Cooperativas() {
             <div className="aud-card">
               <div className="tag">Evaluación técnica</div>
               <h3>Evaluación técnica independiente</h3>
-              <p>
-                No necesitas construir ese expertise internamente. Antes de que el caso llegue a tu escritorio, ya
-                pasó por una revisión técnica independiente que verifica que el sistema propuesto tenga sentido
-                para el consumo real de la propiedad — no que sea el sistema que más le convenga vender al
-                instalador.
-              </p>
+              <p>Cada caso llega con una revisión técnica independiente ya hecha, sin conflicto de interés con el instalador.</p>
             </div>
             <div className="aud-card">
               <div className="tag">Casos orientados</div>
               <h3>Casos orientados, no en blanco</h3>
-              <p>
-                Cada caso que te llega ya trae información de contacto, objetivos energéticos y, cuando aplica, el
-                informe técnico independiente. Menos tiempo educando desde cero, más tiempo evaluando y aprobando.
-              </p>
+              <p>Cada caso llega con contacto, objetivos energéticos y, cuando aplica, informe técnico. Menos tiempo educando, más tiempo aprobando.</p>
             </div>
             <div className="aud-card">
               <div className="tag">Próximamente</div>
               <h3>Portal de casos en línea</h3>
-              <p>
-                Estamos construyendo un sistema en línea donde tu oficial designado podrá ver sus casos asignados
-                y su estatus. Hoy trabajamos de forma manual con las primeras cooperativas con las que estamos
-                conversando, para afinar el proceso antes de automatizarlo.
-              </p>
+              <p>Pronto tu oficial designado podrá ver sus casos y su estatus en línea. Hoy lo hacemos de forma manual mientras afinamos el proceso.</p>
             </div>
           </div>
         </div>
@@ -75,20 +63,20 @@ export default function Cooperativas() {
           <div className="req-list">
             {[
               [
-                "Una política de préstamo solar (o la disposición de construir una)",
-                "Si ya tienes una, la usamos como base. Si no, te ayudamos a pensarla — incluyendo términos que ayuden a bajar la mensualidad de tus socios (a más largo plazo, más asequible) y mejores prácticas como registrar un gravamen sobre el equipo instalado como garantía adicional.",
+                "Una política de préstamo solar",
+                "Si ya tienes una, la usamos como base. Si no, te ayudamos a crearla, con términos que bajen la mensualidad de tus socios.",
               ],
               [
                 "Un oficial de contacto designado",
-                "La persona que recibirá los casos referidos y con quien coordinamos el flujo — no hace falta más de una persona para empezar.",
+                "La persona que recibe los casos y coordina el flujo con nosotros.",
               ],
               [
                 "Criterios claros de originación",
-                "Qué puntuación de crédito mínima manejas, qué financiamiento máximo ofreces, si financias baterías o solo sistema fotovoltaico. Esto nos permite orientar bien a cada solicitante antes de que llegue a ti.",
+                "Puntuación de crédito mínima, financiamiento máximo, y si cubres baterías o solo el sistema fotovoltaico.",
               ],
               [
-                "Participar en una fase piloto manual antes del flujo en línea",
-                "Así afinamos juntos el proceso — qué información necesitas, en qué formato — antes de automatizarlo.",
+                "Una fase piloto manual antes del flujo en línea",
+                "Afinamos juntos el proceso antes de automatizarlo.",
               ],
             ].map(([title, body]) => (
               <div className="req-item" key={title}>

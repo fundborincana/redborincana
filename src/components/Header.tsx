@@ -4,19 +4,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const NAV_LINKS = [
+const COMO_FUNCIONA_LINKS = [
   { href: "/#porque-existe", label: "Por qué existimos" },
-  { href: "/#como-funciona", label: "Cómo funciona" },
-  { href: "/#comprar", label: "Antes de comprar" },
+  { href: "/#como-funciona", label: "Nuestro proceso" },
   { href: "/#audiencias", label: "Para quién es" },
-  { href: "/instaladores", label: "Instaladores" },
+  { href: "/#comprar", label: "Antes de comprar" },
+];
+
+const NAV_LINKS = [
   { href: "/cooperativas", label: "Cooperativas" },
+  { href: "/instaladores", label: "Instaladores" },
   { href: "/#faq", label: "FAQ" },
   { href: "/#intake", label: "Contacto" },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
     <header>
@@ -64,6 +68,28 @@ export default function Header() {
           />
         </Link>
         <nav className="links">
+          <div
+            className="nav-dropdown"
+            onMouseEnter={() => setDropdownOpen(true)}
+            onMouseLeave={() => setDropdownOpen(false)}
+          >
+            <button
+              type="button"
+              className="nav-dropdown-trigger"
+              aria-expanded={dropdownOpen}
+              onClick={() => setDropdownOpen((v) => !v)}
+            >
+              Cómo funciona
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+            <div className={`nav-dropdown-menu${dropdownOpen ? " open" : ""}`}>
+              {COMO_FUNCIONA_LINKS.map((link) => (
+                <a key={link.href} href={link.href} onClick={() => setDropdownOpen(false)}>
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
           {NAV_LINKS.map((link) => (
             <a key={link.href} href={link.href}>
               {link.label}
@@ -91,6 +117,12 @@ export default function Header() {
       </div>
 
       <div className={`mobile-menu${open ? " open" : ""}`}>
+        <div className="mobile-menu-group-label">Cómo funciona</div>
+        {COMO_FUNCIONA_LINKS.map((link) => (
+          <a key={link.href} href={link.href} className="mobile-menu-sub" onClick={() => setOpen(false)}>
+            {link.label}
+          </a>
+        ))}
         {NAV_LINKS.map((link) => (
           <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
             {link.label}

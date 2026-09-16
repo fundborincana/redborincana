@@ -45,8 +45,8 @@ export default function Footer({
           <a href="/#como-funciona">Cómo funciona</a>
           <a href="/#comprar">Antes de comprar</a>
           <a href="/#audiencias">Para quién es</a>
-          <a href="/instaladores">Instaladores</a>
           <a href="/cooperativas">Cooperativas</a>
+          <a href="/instaladores">Instaladores</a>
           <a href="/#faq">Preguntas frecuentes</a>
         </div>
         <div>
