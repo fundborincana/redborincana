@@ -16,7 +16,7 @@ export default function Cooperativas() {
 
       <div className="page-hero">
         <div className="kicker">Red de cooperativas</div>
-        <h1>Ayuda a más socios de tu cooperativa a llegar a la energía solar — con confianza</h1>
+        <h1>Ayuda a más socios de tu cooperativa a llegar a la energía solar, con confianza</h1>
         <p>
           Te damos la evaluación técnica independiente que no tienes que construir internamente, para que puedas
           aprobar financiamiento solar con más seguridad y menos riesgo.
