@@ -884,6 +884,23 @@ form textarea {
   margin-top: 28px;
 }
 
+.evaluacion-embed {
+  padding: 56px 24px;
+}
+.evaluacion-embed-card {
+  max-width: 820px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px;
+  overflow: hidden;
+}
+.evaluacion-embed-card iframe {
+  display: block;
+  border-radius: 12px;
+}
+
 .req-list {
   max-width: 820px;
   margin: 0 auto;

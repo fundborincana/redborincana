@@ -240,10 +240,10 @@ export default function Home() {
           </div>
           <div className="aud-grid">
             <div className="aud-card">
-              <div className="tag">Ya tengo una propuesta</div>
-              <h3>Quiero una segunda opinión técnica</h3>
-              <p>Tengo una propuesta de instalador o estoy en proceso con mi cooperativa y quiero una revisión independiente.</p>
-              <a href="#intake">Solicitar evaluación →</a>
+              <div className="tag">Evaluación técnica</div>
+              <h3>Quiero una opinión técnica para mi propiedad</h3>
+              <p>Con o sin propuesta todavía, quiero una revisión técnica independiente antes de decidir.</p>
+              <a href="/solicitar-evaluacion">Solicitar evaluación →</a>
             </div>
             <div className="aud-card">
               <div className="tag">Soy cooperativa</div>
