@@ -901,6 +901,58 @@ form textarea {
   border-radius: 12px;
 }
 
+.aud-section {
+  padding: 56px 0 8px;
+}
+.aud-grid-2 {
+  grid-template-columns: 1fr 1fr;
+  max-width: 820px;
+}
+.plan-price {
+  font-size: 18px;
+  color: var(--navy-950);
+}
+.plan-price strong {
+  font-size: 34px;
+}
+.membresia-compare {
+  max-width: 820px;
+  margin: 24px auto 0;
+  text-align: center;
+  color: var(--ink-600);
+  font-size: 15px;
+}
+.membresia-info {
+  padding: 40px 24px 0;
+}
+.membresia-info-end {
+  padding-bottom: 56px;
+}
+.membresia-info-inner {
+  max-width: 820px;
+  padding-left: 0;
+  padding-right: 0;
+  color: var(--ink-600);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.membresia-info-inner h2 {
+  color: var(--navy-950);
+  font-size: 22px;
+  margin: 32px 0 12px;
+}
+.membresia-info-inner h2:first-child {
+  margin-top: 0;
+}
+.membresia-info-inner li {
+  margin-bottom: 8px;
+}
+.membresia-note {
+  color: var(--ink-600);
+  font-size: 14px;
+  margin: 18px 0 0;
+}
+
 .req-list {
   max-width: 820px;
   margin: 0 auto;
