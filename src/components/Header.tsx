@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { PHONE_DISPLAY, PHONE_TEL } from "@/lib/contact";
 
 const COMO_FUNCIONA_LINKS = [
   { href: "/#porque-existe", label: "Por qué existimos" },
@@ -34,6 +35,16 @@ export default function Header() {
               </svg>
               redborincana@fundacionborincana.org
             </span>
+            {PHONE_TEL && (
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="13" height="13" style={{ verticalAlign: "-2px", marginRight: 5 }}>
+                  <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />
+                </svg>
+                <a href={`tel:${PHONE_TEL}`} style={{ color: "inherit", textDecoration: "none" }}>
+                  {PHONE_DISPLAY}
+                </a>
+              </span>
+            )}
             <span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="13" height="13" style={{ verticalAlign: "-2px", marginRight: 5 }}>
                 <circle cx="12" cy="12" r="9" />

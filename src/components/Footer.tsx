@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { PHONE_DISPLAY, PHONE_TEL, whatsappHref } from "@/lib/contact";
 
 export default function Footer({
   ctaHeading = "Toma decisiones con información.",
@@ -52,6 +53,12 @@ export default function Footer({
         <div>
           <h4>Contacto</h4>
           <a href="mailto:redborincana@fundacionborincana.org">redborincana@fundacionborincana.org</a>
+          {PHONE_TEL && <a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY}</a>}
+          {whatsappHref && (
+            <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
+              Escríbenos por WhatsApp
+            </a>
+          )}
           <a href="/#intake">Formulario de contacto</a>
         </div>
       </div>

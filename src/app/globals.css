@@ -80,6 +80,32 @@ a {
   color: #fff;
 }
 
+/* BOTÓN FLOTANTE DE WHATSAPP */
+.whatsapp-fab {
+  position: fixed;
+  right: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  z-index: 60;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.whatsapp-fab:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+}
+.whatsapp-fab:focus-visible {
+  outline: 3px solid var(--navy-950);
+  outline-offset: 3px;
+}
+
 /* HEADER */
 header {
   background: linear-gradient(100deg, var(--navy-vivid), var(--navy-800));
