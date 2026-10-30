@@ -84,7 +84,8 @@ a {
 .whatsapp-fab {
   position: fixed;
   right: 20px;
-  bottom: calc(20px + env(safe-area-inset-bottom));
+  /* Deja libre la etiqueta "Powered by Netlify" que se dibuja en la esquina inferior derecha. */
+  bottom: calc(76px + env(safe-area-inset-bottom));
   z-index: 60;
   width: 58px;
   height: 58px;
