@@ -20,8 +20,8 @@ export default function Home() {
               cualificados para que puedas tomar decisiones informadas sobre tu proyecto solar.
             </p>
             <div className="hero-actions">
-              <a href="#intake" className="cta-btn">
-                Quiero más información
+              <a href="/solicitar-evaluacion" className="cta-btn">
+                Solicitar evaluación técnica
               </a>
               <a href="#como-funciona" className="cta-ghost">
                 Ver cómo funciona
@@ -232,18 +232,18 @@ export default function Home() {
           </div>
           <div className="aud-primary">
             <div>
-              <div className="tag">Aún estoy explorando</div>
-              <h3>No sé todavía por dónde empezar</h3>
-              <p>Quiero entender qué es la energía solar, cuánto cuesta y cómo se financia — sin propuesta ni cooperativa todavía.</p>
-            </div>
-            <a href="#intake">Quiero orientación →</a>
-          </div>
-          <div className="aud-grid">
-            <div className="aud-card">
               <div className="tag">Evaluación técnica</div>
               <h3>Quiero una opinión técnica para mi propiedad</h3>
               <p>Con o sin propuesta todavía, quiero una revisión técnica independiente antes de decidir.</p>
-              <a href="/solicitar-evaluacion">Solicitar evaluación →</a>
+            </div>
+            <a href="/solicitar-evaluacion">Solicitar evaluación técnica →</a>
+          </div>
+          <div className="aud-grid">
+            <div className="aud-card">
+              <div className="tag">Aún estoy explorando</div>
+              <h3>No sé todavía por dónde empezar</h3>
+              <p>Quiero entender qué es la energía solar, cuánto cuesta y cómo se financia — sin propuesta ni cooperativa todavía.</p>
+              <a href="#intake">Quiero orientación →</a>
             </div>
             <div className="aud-card">
               <div className="tag">Soy cooperativa</div>

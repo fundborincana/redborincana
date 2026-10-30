@@ -214,6 +214,9 @@ nav.links .nav-dropdown-menu a:hover {
 }
 
 /* Mobile nav toggle */
+.cta-short {
+  display: none;
+}
 .nav-toggle {
   display: none;
   background: none;
@@ -1085,7 +1088,14 @@ footer {
     display: none;
   }
   .nav-right .cta-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  .cta-long {
     display: none;
+  }
+  .cta-short {
+    display: inline;
   }
   .nav-toggle {
     display: inline-flex;

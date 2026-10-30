@@ -97,8 +97,9 @@ export default function Header() {
           ))}
         </nav>
         <div className="nav-right">
-          <a href="/#intake" className="cta-btn">
-            Solicitar información
+          <a href="/solicitar-evaluacion" className="cta-btn">
+            <span className="cta-long">Solicitar evaluación técnica</span>
+            <span className="cta-short">Solicitar evaluación</span>
           </a>
           <button
             type="button"
@@ -128,9 +129,6 @@ export default function Header() {
             {link.label}
           </a>
         ))}
-        <a href="/#intake" className="cta-btn" onClick={() => setOpen(false)}>
-          Solicitar información
-        </a>
       </div>
     </header>
   );
