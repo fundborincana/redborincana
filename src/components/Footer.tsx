@@ -75,6 +75,12 @@ export default function Footer({
         </a>
         <span>San Juan, Puerto Rico</span>
       </div>
+      <div className="footer-credit wrap">
+        Sitio desarrollado por{" "}
+        <a href="https://accesspointpr.com" target="_blank" rel="noopener noreferrer">
+          Access Point
+        </a>
+      </div>
     </footer>
   );
 }

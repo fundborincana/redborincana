@@ -84,8 +84,7 @@ a {
 .whatsapp-fab {
   position: fixed;
   right: 20px;
-  /* Deja libre la etiqueta "Powered by Netlify" que se dibuja en la esquina inferior derecha. */
-  bottom: calc(76px + env(safe-area-inset-bottom));
+  bottom: calc(28px + env(safe-area-inset-bottom));
   z-index: 60;
   width: 58px;
   height: 58px;
@@ -1155,6 +1154,21 @@ footer {
 }
 .footer-bottom img {
   justify-self: start;
+}
+.footer-credit {
+  padding-top: 14px;
+  padding-bottom: 6px;
+  color: #84a2b1;
+  font-size: 12px;
+}
+.footer-credit a {
+  color: #bfd6e2;
+  font-weight: 600;
+  text-decoration: none;
+}
+.footer-credit a:hover {
+  color: #fff;
+  text-decoration: underline;
 }
 
 /* The nav needs ~1040px of clear width for the logo + 7 links + CTA button
