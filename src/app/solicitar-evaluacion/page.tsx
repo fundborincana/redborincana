@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import EvaluacionEmbed from "@/components/EvaluacionEmbed";
 
 export const metadata: Metadata = {
   title: "Solicitar evaluación técnica — Red Borincana",
@@ -50,11 +51,7 @@ export default function SolicitarEvaluacion() {
           </div>
 
           <div className="evaluacion-embed-card">
-            <iframe
-              src="https://dev.chackathon-1.mse.uwestudio.akcelita.com/anonymous/51/workflow/evaluacionsolar/new?step=submitReferralAnon&embed=1&lang=es"
-              style={{ width: "100%", minHeight: 800, border: 0 }}
-              title="Formulario de solicitud de evaluación técnica"
-            />
+            <EvaluacionEmbed />
           </div>
         </div>
       </section>
