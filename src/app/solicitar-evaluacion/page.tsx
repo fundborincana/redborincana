@@ -50,7 +50,7 @@ export default function SolicitarEvaluacion() {
             </ol>
           </div>
 
-          <div className="evaluacion-embed-card">
+          <div className="evaluacion-embed-card form-embed">
             <EvaluacionEmbed />
           </div>
         </div>

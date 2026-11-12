@@ -926,7 +926,7 @@ form textarea {
   overflow: hidden;
 }
 .evaluacion-intro {
-  max-width: 820px;
+  max-width: 920px;
   margin: 0 auto 28px;
 }
 .evaluacion-intro h2 {
@@ -978,6 +978,18 @@ form textarea {
 .evaluacion-embed-card iframe {
   display: block;
   border-radius: 12px;
+}
+/* El formulario en línea no trae margen interno: la página se lo da. El fondo es el mismo
+   (#f3f6fa) que usa el formulario, para que se vea como una sola pieza. */
+.evaluacion-embed-card.form-embed {
+  max-width: 920px;
+  background: #f3f6fa;
+  padding: 32px;
+}
+@media (max-width: 600px) {
+  .evaluacion-embed-card.form-embed {
+    padding: 16px;
+  }
 }
 
 .aud-section {
