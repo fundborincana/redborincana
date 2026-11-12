@@ -987,6 +987,14 @@ form textarea {
   padding: 32px;
 }
 @media (max-width: 600px) {
+  /* En el celular se quitan los márgenes laterales dobles (sección + .wrap) para que el
+     formulario tenga el mayor ancho posible. */
+  .evaluacion-embed {
+    padding: 32px 12px;
+  }
+  .evaluacion-embed .wrap {
+    padding: 0;
+  }
   .evaluacion-embed-card.form-embed {
     padding: 16px;
   }
