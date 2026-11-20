@@ -60,6 +60,73 @@ async function sendEmails(payload: {
   }
 }
 
+type IntakePayload = {
+  fecha: string;
+  nombre: string;
+  telefono: string;
+  email: string;
+  coop: string;
+  municipio: string;
+  interes: string;
+  comentario: string;
+  pagina: string;
+};
+
+// Aviso a un chat o canal de Teams (flujo «Workflows» de Teams que recibe una solicitud web y publica una tarjeta).
+// Es opcional: sin TEAMS_WEBHOOK_URL no hace nada, y si Teams falla no afecta el formulario ni los demás avisos.
+async function notifyTeams(payload: IntakePayload) {
+  const url = process.env.TEAMS_WEBHOOK_URL;
+  if (!url) return;
+
+  const fact = (title: string, value: string) => ({ title, value: value.trim() || "—" });
+  const card = {
+    type: "message",
+    attachments: [
+      {
+        contentType: "application/vnd.microsoft.card.adaptive",
+        contentUrl: null,
+        content: {
+          $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
+          type: "AdaptiveCard",
+          version: "1.4",
+          body: [
+            { type: "TextBlock", size: "Medium", weight: "Bolder", wrap: true, text: "Nueva solicitud desde la página web" },
+            {
+              type: "FactSet",
+              facts: [
+                fact("Nombre", payload.nombre),
+                fact("Teléfono", payload.telefono),
+                fact("Email", payload.email),
+                fact("Municipio", payload.municipio),
+                fact("Cooperativa", payload.coop),
+                fact("Tipo de interés", payload.interes),
+                fact("Comentario", payload.comentario),
+                fact("Página", payload.pagina),
+              ],
+            },
+          ],
+        },
+      },
+    ],
+  };
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(card),
+      signal: controller.signal,
+    });
+    if (!res.ok) console.error("Teams webhook responded with", res.status, await res.text().catch(() => ""));
+  } catch (err) {
+    console.error("Failed to notify Teams", err);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export async function POST(request: Request) {
   const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
 
@@ -110,7 +177,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "No se pudo guardar la solicitud. Intenta de nuevo." }, { status: 502 });
     }
 
-    await sendEmails(payload);
+    // Los correos y el aviso a Teams salen a la vez; ninguno puede hacer fallar el formulario (ya se guardó en la hoja)
+    await Promise.allSettled([sendEmails(payload), notifyTeams(payload)]);
 
     return NextResponse.json({ ok: true });
   } catch (err) {

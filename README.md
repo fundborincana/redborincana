@@ -95,3 +95,26 @@ se cambia el dominio verificado en Resend, hay que actualizar esa dirección tam
 
 Configurado para Netlify (detecta Next.js automáticamente). Recuerda configurar `GOOGLE_SHEET_WEBHOOK_URL`
 y `RESEND_API_KEY` en las variables de entorno del sitio antes de que el formulario funcione en producción.
+
+## Aviso a Teams (chat o canal)
+
+Cada solicitud nueva, además de guardarse en la hoja y de enviar los correos, puede publicarse como una tarjeta en un
+chat o canal de Microsoft Teams. Es **opcional**: sin la variable `TEAMS_WEBHOOK_URL` no se hace nada, y si Teams falla
+el formulario sigue funcionando (el error queda en los logs del servidor).
+
+**Configuración (una vez, en Teams):**
+
+1. Abre el chat o canal donde quieres recibir las solicitudes. La persona que crea el flujo debe ser miembro de ese chat.
+2. En Teams, abre la aplicación **Workflows** (en el menú **···** del chat o canal, o en Aplicaciones → Workflows).
+3. Busca la plantilla **«Send webhook alerts to a chat»** (o **«…to a channel»**, si es un canal; también puede
+   llamarse «Post to a chat when a webhook request is received»).
+4. Ponle un nombre (por ejemplo «Solicitudes de la web»), confirma las conexiones con tu cuenta y escoge el chat o canal.
+5. Al terminar, Teams muestra una **URL**. Cópiala.
+6. Configúrala como variable de entorno `TEAMS_WEBHOOK_URL`:
+   - Local: en `.env.local` (no se sube a git).
+   - Netlify: Site settings → Environment variables → agrega `TEAMS_WEBHOOK_URL`, y vuelve a desplegar el sitio.
+
+**Notas:**
+- La URL es secreta: quien la tenga puede publicar mensajes en ese chat. No se sube a git.
+- El flujo se ejecuta con la cuenta de quien lo creó: si esa persona sale de la organización, el flujo deja de funcionar y hay que recrearlo.
+- La tarjeta muestra nombre, teléfono, email, municipio, cooperativa, tipo de interés, comentario y página.
