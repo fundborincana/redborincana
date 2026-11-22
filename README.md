@@ -118,3 +118,12 @@ el formulario sigue funcionando (el error queda en los logs del servidor).
 - La URL es secreta: quien la tenga puede publicar mensajes en ese chat. No se sube a git.
 - El flujo se ejecuta con la cuenta de quien lo creó: si esa persona sale de la organización, el flujo deja de funcionar y hay que recrearlo.
 - La tarjeta muestra nombre, teléfono, email, municipio, cooperativa, tipo de interés, comentario y página.
+
+### Datos sueltos para el flujo de Teams (crear una tarea en Planner, etc.)
+
+Además de la tarjeta, el envío a Teams trae un objeto `datos` con los campos por separado. En Power Automate se leen con
+una expresión (botón `fx`), por ejemplo:
+
+- Título de la tarea: `concat('Llamar a ', triggerBody()?['datos']?['nombre'])`
+- Fecha límite (hoy + 3 días): `addDays(utcNow(), 3)`
+- Campos disponibles: `fecha`, `nombre`, `telefono`, `email`, `municipio`, `coop`, `interes`, `comentario`, `pagina`.

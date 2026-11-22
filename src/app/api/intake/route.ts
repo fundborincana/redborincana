@@ -81,6 +81,19 @@ async function notifyTeams(payload: IntakePayload) {
   const fact = (title: string, value: string) => ({ title, value: value.trim() || "—" });
   const card = {
     type: "message",
+    // Los mismos datos, sueltos, para que el flujo de Teams pueda usarlos (por ejemplo, para crear una tarea en Planner):
+    // en Power Automate se leen con triggerBody()?['datos']?['nombre'], ['telefono'], ['email'], etc.
+    datos: {
+      fecha: payload.fecha,
+      nombre: payload.nombre,
+      telefono: payload.telefono,
+      email: payload.email,
+      municipio: payload.municipio,
+      coop: payload.coop,
+      interes: payload.interes,
+      comentario: payload.comentario,
+      pagina: payload.pagina,
+    },
     attachments: [
       {
         contentType: "application/vnd.microsoft.card.adaptive",
