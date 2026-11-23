@@ -66,16 +66,16 @@ Sin esa variable configurada, el formulario muestra un error al enviar (no falla
 **Cuando se conecte el sistema definitivo del cliente:** reemplazar la lógica interna de
 `src/app/api/intake/route.ts` — el formulario en el front-end no necesita cambiar.
 
-## Emails de confirmación y aviso (Resend)
+## Email de confirmación (Resend)
 
-Cuando alguien envía el formulario, además de guardarse en Google Sheets, se envían dos correos vía
-[Resend](https://resend.com):
+Cuando alguien envía el formulario, además de guardarse en Google Sheets, se envía un correo de **confirmación** a la
+persona que llenó el formulario, vía [Resend](https://resend.com).
 
-- Un correo de **confirmación** a la persona que llenó el formulario.
-- Un correo de **aviso** a `redborincana@fundacionborincana.org` con los detalles de la solicitud.
+El aviso interno al equipo **ya no llega por correo** a `redborincana@fundacionborincana.org`: se publica en Teams y se
+crea una tarjeta en Planner (ver «Aviso a Teams» más abajo).
 
 Si `RESEND_API_KEY` no está configurada, el formulario sigue funcionando normalmente (se guarda en el
-Google Sheet) pero no se envía ningún correo — el error queda registrado en los logs del servidor, no se
+Google Sheet) pero no se envía el correo — el error queda registrado en los logs del servidor, no se
 le muestra al usuario.
 
 **Configuración (una vez):**
@@ -127,3 +127,23 @@ una expresión (botón `fx`), por ejemplo:
 - Título de la tarea: `concat('Llamar a ', triggerBody()?['datos']?['nombre'])`
 - Fecha límite (hoy + 3 días): `addDays(utcNow(), 3)`
 - Campos disponibles: `fecha`, `nombre`, `telefono`, `email`, `municipio`, `coop`, `interes`, `comentario`, `pagina`.
+
+### Tarjeta en Planner (objeto `tarea`)
+
+El envío también trae un objeto `tarea`, con el **mismo formato que usa el asistente de WhatsApp**, para que un mismo
+flujo de Power Automate cree la tarjeta en los dos casos:
+
+| Campo | Contenido |
+| --- | --- |
+| `crear` | `true` para personas (clientes); `false` para cooperativas e instaladores, que solo avisan en Teams |
+| `accion` | `crear` o `ninguna` |
+| `caso` | Número de caso de la web, con el formato `WEB-aammdd-hhmmss` (hora de Puerto Rico) |
+| `titulo` | `Llamar a {nombre} · {teléfono} [{caso}]` |
+| `descripcion` | Los datos de la solicitud, uno por línea, y el comentario |
+| `vence` | Dos días laborables después, a las 5:00 p. m. de Puerto Rico, en ISO UTC (no cuenta feriados) |
+| `nota` | Vacío (se usa solo en WhatsApp para agregar notas a una tarjeta existente) |
+
+En el flujo de Power Automate: una **Condición** con `triggerBody()?['tarea']?['crear']` igual a `true`. En la rama
+**True**: Planner → **Crear una tarea** (grupo Red Borincana, plan RB Casos, cubo «Nuevos (Para llamar)», título
+`triggerBody()?['tarea']?['titulo']`, fecha de entrega `triggerBody()?['tarea']?['vence']`, y el correo de la persona
+asignada) y Planner → **Actualizar detalles de la tarea** (descripción `triggerBody()?['tarea']?['descripcion']`).

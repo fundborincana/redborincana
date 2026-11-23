@@ -1,48 +1,18 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const NOTIFICATION_EMAIL = "redborincana@fundacionborincana.org";
 const FROM_EMAIL = "Red Borincana <noreply@redborincana.org>";
 
-async function sendEmails(payload: {
-  nombre: string;
-  telefono: string;
-  email: string;
-  coop: string;
-  municipio: string;
-  interes: string;
-  comentario: string;
-  pagina: string;
-}) {
+// Solo sale el correo de confirmación a quien llenó el formulario. El aviso interno al equipo
+// ya no llega por correo: se publica en Teams y se crea la tarjeta en Planner (ver notifyTeams).
+async function sendEmails(payload: { nombre: string; email: string }) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    console.error("RESEND_API_KEY is not configured — skipping confirmation/notification emails");
+    console.error("RESEND_API_KEY is not configured — skipping confirmation email");
     return;
   }
 
   const resend = new Resend(apiKey);
-
-  const detailsHtml = `
-    <p><strong>Nombre:</strong> ${payload.nombre}</p>
-    <p><strong>Teléfono:</strong> ${payload.telefono}</p>
-    <p><strong>Email:</strong> ${payload.email}</p>
-    <p><strong>Cooperativa:</strong> ${payload.coop || "—"}</p>
-    <p><strong>Municipio:</strong> ${payload.municipio}</p>
-    <p><strong>Tipo de interés:</strong> ${payload.interes || "—"}</p>
-    <p><strong>Comentario:</strong> ${payload.comentario || "—"}</p>
-    <p><strong>Página:</strong> ${payload.pagina || "—"}</p>
-  `;
-
-  try {
-    await resend.emails.send({
-      from: FROM_EMAIL,
-      to: NOTIFICATION_EMAIL,
-      subject: `Nueva solicitud: ${payload.nombre}`,
-      html: detailsHtml,
-    });
-  } catch (err) {
-    console.error("Failed to send internal notification email", err);
-  }
 
   try {
     await resend.emails.send({
@@ -72,6 +42,75 @@ type IntakePayload = {
   pagina: string;
 };
 
+// Hora de Puerto Rico (UTC-4, sin cambio de horario): se trabaja con getUTC* sobre una fecha desplazada.
+const PR_OFFSET_MS = 4 * 60 * 60 * 1000;
+
+function two(n: number) {
+  return String(n).padStart(2, "0");
+}
+
+// Número de caso de la web, con el mismo formato que los de WhatsApp (WA-aammdd-hhmmss).
+function casoWeb(now: Date) {
+  const d = new Date(now.getTime() - PR_OFFSET_MS);
+  const aammdd = `${two(d.getUTCFullYear() % 100)}${two(d.getUTCMonth() + 1)}${two(d.getUTCDate())}`;
+  const hhmmss = `${two(d.getUTCHours())}${two(d.getUTCMinutes())}${two(d.getUTCSeconds())}`;
+  return `WEB-${aammdd}-${hhmmss}`;
+}
+
+// Dos días laborables después de hoy, a las 5:00 p. m. de Puerto Rico, en ISO UTC (no cuenta feriados).
+function venceDosDiasLaborables(now: Date) {
+  const d = new Date(now.getTime() - PR_OFFSET_MS);
+  let vence = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 17, 0, 0));
+  let sumados = 0;
+  while (sumados < 2) {
+    vence = new Date(vence.getTime() + 24 * 60 * 60 * 1000);
+    const dia = vence.getUTCDay();
+    if (dia !== 0 && dia !== 6) sumados++;
+  }
+  return new Date(vence.getTime() + PR_OFFSET_MS).toISOString();
+}
+
+// Igual que con WhatsApp: tarjeta en Planner solo para personas (clientes), no para cooperativas ni instaladores.
+function creaTarjeta(payload: IntakePayload) {
+  const interes = payload.interes.toLowerCase();
+  const esCooperativa = interes.startsWith("soy una cooperativa") || payload.pagina.startsWith("/cooperativas");
+  const esInstalador = interes.startsWith("soy instalador");
+  return !esCooperativa && !esInstalador;
+}
+
+// Mismo objeto «tarea» que manda el asistente de WhatsApp, para que el flujo de Power Automate
+// cree la tarjeta con los mismos pasos: crear, accion, caso, nota, titulo, descripcion, vence.
+function buildTarea(payload: IntakePayload) {
+  const now = new Date();
+  const crear = creaTarjeta(payload);
+  const caso = casoWeb(now);
+  const filas: [string, string][] = [
+    ["Nombre", payload.nombre],
+    ["Teléfono", payload.telefono],
+    ["Email", payload.email],
+    ["Municipio", payload.municipio],
+    ["Cooperativa", payload.coop],
+    ["Tipo de interés", payload.interes],
+    ["Caso", caso],
+    ["Página", payload.pagina],
+  ];
+  const descripcion =
+    filas
+      .filter(([, valor]) => valor.trim())
+      .map(([nombre, valor]) => `${nombre}: ${valor}`)
+      .join("\n") + `\nComentario: ${payload.comentario.trim() || "—"}`;
+
+  return {
+    crear,
+    accion: crear ? "crear" : "ninguna",
+    caso,
+    nota: "",
+    titulo: `Llamar a ${payload.nombre || "persona sin nombre"} · ${payload.telefono} [${caso}]`,
+    descripcion,
+    vence: venceDosDiasLaborables(now),
+  };
+}
+
 // Aviso a un chat o canal de Teams (flujo «Workflows» de Teams que recibe una solicitud web y publica una tarjeta).
 // Es opcional: sin TEAMS_WEBHOOK_URL no hace nada, y si Teams falla no afecta el formulario ni los demás avisos.
 async function notifyTeams(payload: IntakePayload) {
@@ -94,6 +133,8 @@ async function notifyTeams(payload: IntakePayload) {
       comentario: payload.comentario,
       pagina: payload.pagina,
     },
+    // Datos para crear la tarjeta en Planner (ver buildTarea).
+    tarea: buildTarea(payload),
     attachments: [
       {
         contentType: "application/vnd.microsoft.card.adaptive",
